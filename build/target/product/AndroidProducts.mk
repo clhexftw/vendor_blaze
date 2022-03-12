@@ -15,7 +15,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/elytra_arm64.mk
+    $(LOCAL_DIR)/blaze_arm64.mk
 
 COMMON_LUNCH_CHOICES := \
-    elytra_arm64-userdebug
+    blaze_arm64-userdebug

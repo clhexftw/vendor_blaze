@@ -1,4 +1,4 @@
-# Copyright (C) 2021 elytraOS
+# Copyright (C) 2021 ProjectBlaze
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,43 +13,45 @@
 # limitations under the License.
 
 ANDROID_VERSION := 12.0
-ELYTRAVERSION := SKYLIGHT
+BLAZEVERSION := v1.0
 
-ELYTRA_BUILD_TYPE ?= UNOFFICIAL
-ELYTRA_DATE_YEAR := $(shell date -u +%Y)
-ELYTRA_DATE_MONTH := $(shell date -u +%m)
-ELYTRA_DATE_DAY := $(shell date -u +%d)
-ELYTRA_DATE_HOUR := $(shell date -u +%H)
-ELYTRA_DATE_MINUTE := $(shell date -u +%M)
-ELYTRA_BUILD_DATE := $(ELYTRA_DATE_YEAR)$(ELYTRA_DATE_MONTH)$(ELYTRA_DATE_DAY)-$(ELYTRA_DATE_HOUR)$(ELYTRA_DATE_MINUTE)
-TARGET_PRODUCT_SHORT := $(subst elytra_,,$(ELYTRA_BUILD))
+BLAZE_BUILD_TYPE ?= UNOFFICIAL
+BLAZE_MAINTAINER ?= UNKNOWN
+BLAZE_DATE_YEAR := $(shell date -u +%Y)
+BLAZE_DATE_MONTH := $(shell date -u +%m)
+BLAZE_DATE_DAY := $(shell date -u +%d)
+BLAZE_DATE_HOUR := $(shell date -u +%H)
+BLAZE_DATE_MINUTE := $(shell date -u +%M)
+BLAZE_BUILD_DATE := $(BLAZE_DATE_YEAR)$(BLAZE_DATE_MONTH)$(BLAZE_DATE_DAY)-$(BLAZE_DATE_HOUR)$(BLAZE_DATE_MINUTE)
+TARGET_PRODUCT_SHORT := $(subst blaze_,,$(BLAZE_BUILD))
 
 # OFFICIAL_DEVICES
-ifeq ($(ELYTRA_BUILD_TYPE), OFFICIAL)
-  LIST = $(shell cat vendor/elytra/elytra.devices)
-    ifeq ($(filter $(ELYTRA_BUILD), $(LIST)), $(ELYTRA_BUILD))
+ifeq ($(BLAZE_BUILD_TYPE), OFFICIAL)
+  LIST = $(shell cat vendor/blaze/blaze.devices)
+    ifeq ($(filter $(BLAZE_BUILD), $(LIST)), $(BLAZE_BUILD))
       IS_OFFICIAL=true
-      ELYTRA_BUILD_TYPE := OFFICIAL
+      BLAZE_BUILD_TYPE := OFFICIAL
     endif
     ifneq ($(IS_OFFICIAL), true)
-      ELYTRA_BUILD_TYPE := UNOFFICIAL
-      $(error Device is not official "$(ELYTRA_BUILD)")
+      BLAZE_BUILD_TYPE := UNOFFICIAL
+      $(error Device is not official "$(BLAZE_BUILD)")
     endif
 endif
 
-ELYTRA_VERSION := $(ELYTRAVERSION)-$(ELYTRA_BUILD)-$(ELYTRA_BUILD_DATE)-$(ELYTRA_BUILD_TYPE)
-ELYTRA_MOD_VERSION :=$(ANDROID_VERSION)-$(ELYTRAVERSION)
-ELYTRA_DISPLAY_VERSION := elytraOS-$(ELYTRAVERSION)-$(ELYTRA_BUILD_TYPE)
-ELYTRA_DISPLAY_BUILDTYPE := $(ELYTRA_BUILD_TYPE)
-ELYTRA_FINGERPRINT := elytraOS/$(ELYTRA_MOD_VERSION)/$(TARGET_PRODUCT_SHORT)/$(ELYTRA_BUILD_DATE)
+BLAZE_VERSION := $(BLAZEVERSION)-$(BLAZE_BUILD)-$(BLAZE_BUILD_DATE)-$(BLAZE_BUILD_TYPE)
+BLAZE_MOD_VERSION :=$(ANDROID_VERSION)-$(BLAZEVERSION)
+BLAZE_DISPLAY_VERSION := ProjectBlaze-$(BLAZEVERSION)-$(BLAZE_BUILD_TYPE)
+BLAZE_DISPLAY_BUILDTYPE := $(BLAZE_BUILD_TYPE)
+BLAZE_FINGERPRINT := ProjectBlaze/$(BLAZE_MOD_VERSION)/$(TARGET_PRODUCT_SHORT)/$(BLAZE_BUILD_DATE)
 
-# elytra System Version
+# BLAZE System Version
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-  ro.elytra.version=$(ELYTRA_DISPLAY_VERSION) \
-  ro.elytra.build.status=$(ELYTRA_BUILD_TYPE) \
-  ro.modversion=$(ELYTRA_MOD_VERSION) \
-  ro.elytra.build.date=$(ELYTRA_BUILD_DATE) \
-  ro.elytra.buildtype=$(ELYTRA_BUILD_TYPE) \
-  ro.elytra.fingerprint=$(ELYTRA_FINGERPRINT) \
-  ro.elytra.device=$(ELYTRA_BUILD) \
-  org.elytra.version=$(ELYTRAVERSION)
+  ro.blaze.version=$(BLAZE_DISPLAY_VERSION) \
+  ro.blaze.build.status=$(BLAZE_BUILD_TYPE) \
+  ro.modversion=$(BLAZE_MOD_VERSION) \
+  ro.blaze.build.date=$(BLAZE_BUILD_DATE) \
+  ro.blaze.buildtype=$(BLAZE_BUILD_TYPE) \
+  ro.blaze.fingerprint=$(BLAZE_FINGERPRINT) \
+  ro.blaze.device=$(BLAZE_BUILD) \
+  org.blaze.version=$(BLAZEVERSION) \
+  ro.blaze.maintainer=$(BLAZE_MAINTAINER)
