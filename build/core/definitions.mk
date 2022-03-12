@@ -1,12 +1,12 @@
 #
-# elytra-specific macros
+# blaze-specific macros
 #
 define uniq
 $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
 endef
 
 # Include board/platform macros
-include vendor/elytra/build/core/utils.mk
+include vendor/blaze/build/core/utils.mk
 
 # Include vendor platform definitions
-include vendor/elytra/build/core/vendor/*.mk
+include vendor/blaze/build/core/vendor/*.mk

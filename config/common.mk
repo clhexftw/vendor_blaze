@@ -1,7 +1,7 @@
 # Allow vendor/extra to override any property by setting it first
 $(call inherit-product-if-exists, vendor/extra/product.mk)
 
-PRODUCT_BRAND ?= elytraOS
+PRODUCT_BRAND ?= ProjectBlaze
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
@@ -26,18 +26,18 @@ endif
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/elytra/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/elytra/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/elytra/prebuilt/common/bin/50-elytra.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-elytra.sh
+    vendor/blaze/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/blaze/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/blaze/prebuilt/common/bin/50-blaze.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-blaze.sh
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/addon.d/50-lineage.sh
 
 ifneq ($(strip $(AB_OTA_PARTITIONS) $(AB_OTA_POSTINSTALL_CONFIG)),)
 PRODUCT_COPY_FILES += \
-    vendor/elytra/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
-    vendor/elytra/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
-    vendor/elytra/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
+    vendor/blaze/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
+    vendor/blaze/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
+    vendor/blaze/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/backuptool_ab.sh \
@@ -52,9 +52,9 @@ endif
 
 # Lineage-specific init rc file
 PRODUCT_COPY_FILES += \
-    vendor/elytra/prebuilt/common/etc/init/init.lineage-system.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.lineage-system.rc \
-    vendor/elytra/prebuilt/common/etc/init/init.lineage-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.lineage-updater.rc \
-    vendor/elytra/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
+    vendor/blaze/prebuilt/common/etc/init/init.lineage-system.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.lineage-system.rc \
+    vendor/blaze/prebuilt/common/etc/init/init.lineage-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.lineage-updater.rc \
+    vendor/blaze/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
 
 # Blurs
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
@@ -75,7 +75,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
-    vendor/elytra/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.nfc.beam.xml
+    vendor/blaze/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.nfc.beam.xml
 
 # Enable gestural navigation overlay to match default navigation mode
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -162,25 +162,19 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
--include vendor/elytra/config/partner_gms.mk
+-include vendor/blaze/config/partner_gms.mk
 
 # Inherit from rro_overlays config
-$(call inherit-product, vendor/elytra/config/rro_overlays.mk)
+$(call inherit-product, vendor/blaze/config/rro_overlays.mk)
 
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/elytra/overlay
-DEVICE_PACKAGE_OVERLAYS += vendor/elytra/overlay/common
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/blaze/overlay
+DEVICE_PACKAGE_OVERLAYS += vendor/blaze/overlay/common
 
 # Versioning
-include vendor/elytra/config/version.mk
+include vendor/blaze/config/version.mk
 
 # BootAnimation
-include vendor/elytra/config/bootanimation.mk
-
-# Fonts
-$(call inherit-product, vendor/elytra/fonts/fonts.mk)
+include vendor/blaze/config/bootanimation.mk
 
 # Audio
-$(call inherit-product, vendor/elytra/audio/audio.mk)
-
-# Include extra packages
-include vendor/elytra/config/packages.mk
+$(call inherit-product, vendor/blaze/audio/audio.mk)

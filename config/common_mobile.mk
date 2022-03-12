@@ -1,5 +1,5 @@
-# Inherit common mobile elytra stuff
-$(call inherit-product, vendor/elytra/config/common.mk)
+# Inherit common mobile blaze stuff
+$(call inherit-product, vendor/blaze/config/common.mk)
 
 # AOSP packages
 PRODUCT_PACKAGES += \
